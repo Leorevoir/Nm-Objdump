@@ -4,8 +4,33 @@ on:
     branches:
       - '*'
 jobs:
-  test:
+  check_coding_style:
     runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install coding style checker
+        run: |
+          curl https://raw.githubusercontent.com/Epitech/coding-style-checker/refs/heads/main/coding-style.sh -o coding-style.sh
+          chmod +x coding-style.sh
+
+      - name: Run coding style checker
+        run: |
+          ./coding-style.sh .
+          if [ -s coding-style-reports.log ]; then
+            echo "❌ Coding style errors found!"
+            cat coding-style-reports.log
+            exit 84
+          else
+            echo "✅ No coding style errors detected!"
+          fi
+
+  test:
+    needs: check_coding_style
+    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
