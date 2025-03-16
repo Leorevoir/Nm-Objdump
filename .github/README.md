@@ -13,7 +13,7 @@
 
 ## Usage
 
-**Grade for this unit:** `100%` Epitech's tests passed.
+**Grade for this unit:** `85.2%` Epitech's tests passed.
 
 Close the repo
 
